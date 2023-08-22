@@ -1,4 +1,5 @@
 # Introduction
+
 Congratulations on completing the tutorial on how to create your first Wagtail Site! Having completed the tutorial and built a blog site from scratch, you should now have a solid understanding of the basic building blocks of a Wagtail website. We hope you enjoyed the process as much as we did.
 
 Now that you can build a blog site with Wagtail, why stop there? We curated this series of tutorials to help you advance your Wagtail knowledge and transform your blog into something even more impressive, a fully deployable portfolio site.

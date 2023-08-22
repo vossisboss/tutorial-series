@@ -1,9 +1,4 @@
-Customize the home page
-  a. Add a field for a headshot or graphic
-  b. Add a field for text that can include a short bio or enticing “hire me” text.
-  c. Add a documents field for a downloadable copy of a resume/CV to demonstrate how document fields work 
-  d. Add template for displaying these items.
-
+# Customize your home page
 
 When building your portfolio website, the first step is to set up and personalize your homepage. The homepage is your chance to make an excellent first impression and convey the core message of your portfolio. So your homepage should include the following features:
 
