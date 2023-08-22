@@ -20,8 +20,10 @@ To get started, you need to set up your Wagtail project. To set up your Wagtail 
 1. Create and activate your virtual environment.
 2. Install Wagtail and generate your portfolio project. 
 3. Install your project dependencies.
-4. Create an admin user.
+4. create you database
 
 ```Note
 In this tutorial, you will use the default Wagtail database, SQLite.
 ```
+
+5. Create an admin user.
