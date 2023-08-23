@@ -50,6 +50,6 @@ Did you enjoy building the blog in our Getting Started tutorial? Now we’ll sho
   e. Deploying code
   f. Configure static and media files
 
-
+<!-- https://docs.google.com/document/d/1k-wAnnbk7ifZMuVipGzOAFDCJ4ENok_-X_exOMAeaB8/edit -->
 
 Make Wagtail hooks last priority

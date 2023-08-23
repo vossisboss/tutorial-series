@@ -68,10 +68,13 @@ class HomePage(Page):
     ]
 ```
 
-You might already be familiar with the different parts of your Homepage model. The `image` field is a `ForeignKey` referencing Wagtail's built-in Image model for storing images. Similarly, `hero_cta_link` is a `ForeignKey` to `wagtailcore.Page`, representing a page instance. Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` and `hero_cta_link` fields on your Homepage will be set to null, preserving the entries. The `related_name` attribute defines the reverse relationship from the related model, providing a readable attribute name when accessing associated objects. When you use `related_name="+"`, then you don't want to create a reverse relationship for your `ForeignKey` fields. In other words, you're instructing Django not to create a way to access `image` from `wagtailimages.Image` or `hero_cta_link` from 
-`wagtailcore.Page`. 
+You might already be familiar with the different parts of your Homepage model. The `image` field is a `ForeignKey` referencing Wagtail's built-in Image model for storing images. Similarly, `hero_cta_link` is a `ForeignKey` to `wagtailcore.Page`, which is a page instance. 
+
+Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` and `hero_cta_link` fields on your Homepage will be set to null, preserving their entries. 
+
+The `related_name` attribute defines the reverse relationship from the related model, providing a readable attribute name when accessing associated objects. For instance, if you want to access `image` from `wagtailimages.Image`, you can use the value that you give to the `related-name` attribute in your QuerySet. When you use `related_name="+"`, then you don't want to create a reverse relationship for your `ForeignKey` fields. In other words, you're instructing Django not to create a way to access `image` from `wagtailimages.Image` and `hero_cta_link` from `wagtailcore.Page`. 
 
 While `body` is a `RichTextField`, `hero_text` and `hero_cta` are `CharField`, a typical Django string field for storing short texts.
 
 
-
+<!-- Note to Damilola: hightlight the differences between RichTextField and StreamField; ask for a draft explanation of wagtailcore.Page from Thibaud -->
