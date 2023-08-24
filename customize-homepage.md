@@ -76,5 +76,7 @@ The `related_name` attribute defines the reverse relationship from the related m
 
 While `body` is a `RichTextField`, `hero_text` and `hero_cta` are `CharField`, a typical Django string field for storing short texts.
 
+The [Your First Wagtail Tutorial]() already explained `content_panels`. [FieldPanel](https://docs.wagtail.org/en/stable/reference/pages/panels.html#fieldpanel) and [MultiPanel](https://docs.wagtail.org/en/stable/reference/pages/panels.html#multifieldpanel) are types of Wagtail built-in [Panels](https://docs.wagtail.org/en/stable/reference/pages/panels.html#panel-types). They are both subclasses of the base Panel class and accept all of Wagtail's `Panel` parameters in addition to their own. While the `FieldPanel` provides a widget for basic Django model fields, `MultiPanel` helps group related fields.
 
-<!-- Note to Damilola: hightlight the differences between RichTextField and StreamField; ask for a draft explanation of wagtailcore.Page from Thibaud -->
+
+<!-- Note to Damilola: hightlight the differences between RichTextField and StreamField; Ask for a draft explanation of wagtailcore.Page from Thibaud.-->
