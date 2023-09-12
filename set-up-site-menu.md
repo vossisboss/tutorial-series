@@ -41,7 +41,7 @@ Now, modify your `portfoliosite/templates/includes/header.html` file:
 </header>
 ```
 
-In the preceding template, `{% load wagtailcore_tags navigation_tags %}` loads template tags from the `wagtailcore_tags` and `navigation_tags` libraries. These tags provide the functionality for generating navigation menus in Wagtail.
+In the preceding template, `{% load wagtailcore_tags navigation_tags %}` loads template tags from the `wagtailcore_tags` and `navigation_tags` libraries. These tags provide the capability for generating navigation menus in Wagtail.
 
 `{% get_site_root as site_root %}` retrieves your HomePage and assigns it to the variable `site_root`.
 
