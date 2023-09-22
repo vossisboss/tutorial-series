@@ -76,6 +76,6 @@ Now, if you reload your homepage, you'll see your site menu with a link to your 
 1. go to your admin interface
 2. go to any top-level page
 3. click **Promote**
-4. check **Show in menus**
+4. check the **Show in menus** checkbox
 
 <!-- Provide a diagram to illustrate the checking of the Show in Menu checkbox -->

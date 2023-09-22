@@ -72,7 +72,7 @@ You might already be familiar with the different parts of your HomePage model. T
 
 Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` and `hero_cta_link` fields on your Homepage will be set to null, preserving their data entries. Read the [Django documentation](https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey.on_delete) for more values for the `on-delete` attribute. 
 
-The `related_name` attribute creates a relationship between related models. For example, if you want to access the HomePage's `image` from `wagtailimages.Image`, you can use the `related_name` attribute. When you use `related_name="+"`, you’re creating a connection between models that does not create a reverse relationship for your `ForeignKey` fields. In other words, you're instructing Django to create a way to access the HomePage's `image` from `wagtailimages.Image` but not a way to access `wagtailimages.Image` from the HomePage `image`. 
+The `related_name` attribute creates a relationship between related models. For example, if you want to access the HomePage's `image` from `wagtailimages.Image`, you can use the `related_name` attribute. When you use `related_name="+"`, you’re creating a connection between models that doesn't create a reverse relationship for your `ForeignKey` fields. In other words, you're instructing Django to create a way to access the HomePage's `image` from `wagtailimages.Image` but not a way to access `wagtailimages.Image` from the HomePage `image`. 
 
 While `body` is a `RichTextField`, `hero_text` and `hero_cta` are `CharField`, a typical Django string field for storing short text.
 

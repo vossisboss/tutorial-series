@@ -45,7 +45,7 @@ header {
 }
 ```
 
-Now, reload your portfolio site to reflect the CSS styles.
+Now, reload your portfolio site to reflect the styles.
 
 ```Note
 If your webpage's styles do not update after reloading, then you may need to clear your browser cache.
@@ -130,9 +130,9 @@ In the preceding template, you made the following modifications:
 
 4. You wrapped the `{% block content %}` and `{% endblock %}` tags, which define the main content of the page within a `<main>` HTML5 tag. The `<main>` tag is a semantic HTML5 tag used to indicate the main content of a webpage.
 
-Additionally, you want to dynamically get the title of your HomePage to use in your site menu instead of hardcoding it in your template. Also, you should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template to improve user the experience for  keyboard and screen reader users. 
+Additionally, you should dynamically get the title of your HomePage to use in your site menu instead of hardcoding it in your template. Also, you should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template to improve user the experience for  keyboard and screen reader users. 
 
-To make the preceding improvements, modify your `mysite/templates/includes/header.html` as follows:
+To make the improvements mentioned in the preceding paragraph, modify your `mysite/templates/includes/header.html` as follows:
 
 ```html+django
 <!-- load wagtailuserbar: -->
