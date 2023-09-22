@@ -3,9 +3,9 @@ The next step is to create a footer for all pages of your portfolio site. You ca
 
 ## Add a base app
 
-Now, you’re going to create a general-purpose app that you’ll call the `base` app. You’re creating this app is because the items you want to add to your footer are related, site-wide, and require a similar configuration. To generate the `base` app, run the command, `python manage.py startapp base`.
+Now, you’re going to create a general-purpose app that you’ll call the `base` app. To generate the `base` app, run the command, `python manage.py startapp base`.
 
-After generating the `base` app, you must install it on your site. In your `portfoliosite/settings/base.py` file, add _"base"_ to the `INSTALLED_APPS` list.
+After generating the `base` app, you must install it on your site. In your `mysite/settings/base.py` file, add _"base"_ to the `INSTALLED_APPS` list.
 
 ## Add social media links
 
@@ -41,17 +41,17 @@ class NavigationSettings(BaseGenericSetting):
     ]
 ```
 
-In the preceding code, the `register_setting`` decorator` registers your `NavigationSettings` models. You used the `BaseGenericSetting` base model class to define a settings model that applies to all web pages rather than just one page.
+In the preceding code, the `register_setting` decorator` registers your `NavigationSettings` models. You used the `BaseGenericSetting` base model class to define a settings model that applies to all web pages rather than just one page.
 
 Now migrate your database by running the commands, `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, restart your server and then reload your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You will get the error _'wagtailsettings' is not a registered namespace_. This is because you haven't install the `wagtail.contrib.settings` module.
 
-The `wagtail.contrib.settings` module allows you to define models that hold settings that are common across all your web pages. So, to successfully import the `BaseGenericSetting` and `register_setting`, you must install the `wagtail.contrib.settings` module on your site. To install it, go to your `portfoliosite/settings/base.py` file and add _wagtail.contrib.settings_ to the `INSTALLED_APPS` list.
+The `wagtail.contrib.settings` module allows you to define models that hold settings that are common across all your web pages. So, to successfully import the `BaseGenericSetting` and `register_setting`, you must install the `wagtail.contrib.settings` module on your site. To install it, go to your `mysite/settings/base.py` file and add _"wagtail.contrib.settings"_ to the `INSTALLED_APPS` list.
 
 Reload your admin interface and click **Settings** from your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar). You can see your **Navigation Settings**. Clicking the **Navigation Settings** gives you a form to add your social media account links.
 
 ## Display social media links
 
-You must provide a template to display the social media links in your footer. In your `portfoliosite/templates/includes/footer.html` file, add the following:
+You must provide a template to display the social media links in your footer. In your `mysite/templates/includes/footer.html` file, add the following:
 ```html+django
 <footer>
     <p>Built with Wagtail</p>
@@ -76,30 +76,30 @@ You must provide a template to display the social media links in your footer. In
 ```
 
 ```Note
-You must create an `includes` folder in your `portfoliosite/templates` folder.
+You must create an `includes` folder in your `mysite/templates` folder.
 ```
 
-Now go to your `portfoliosite/templates/base.html` file and modify it:
+Now go to your `mysite/templates/base.html` file and modify it:
 
 ```
 <body class="{% block body_class %}{% endblock %}">
-        {% wagtailuserbar %}
+    {% wagtailuserbar %}
 
-        {% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 
-        <!-- Add this to the file: -->
-        {% include "includes/footer.html" %}
+    <!-- Add this to the file: -->
+    {% include "includes/footer.html" %}
 
-        {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/portfolio.js' %}"></script>
+    {# Global javascript #}
+    <script type="text/javascript" src="{% static 'js/portfolio.js' %}"></script>
 
-        {% block extra_js %}
-        {# Override this in templates to add extra javascript #}
-        {% endblock %}
-    </body>
+    {% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    {% endblock %}
+</body>
 ```
 
-Also, you have to register the _settings_ context processor. To register the _settings_ context processor, modify your `portfoliosite/settings/base.py` file:
+Also, you have to register the _settings_ context processor. To register the _settings_ context processor, modify your `mysite/settings/base.py` file:
 
 ```python
 TEMPLATES = [
@@ -124,7 +124,7 @@ TEMPLATES = [
 ]
 ```
 
-Now, restart your server. You should see your social media links at the bottom of your homepage.
+Now, restart your server and reload your homepage. You should see your social media links at the bottom of your homepage.
 
 # Add footer text
 
@@ -152,6 +152,7 @@ from wagtail.models import (
     RevisionMixin,
     TranslatableMixin,
 )
+
 from wagtail.contrib.settings.models import (
     BaseGenericSetting,
     register_setting,
@@ -160,9 +161,7 @@ from wagtail.contrib.settings.models import (
 # import register_snippet:
 from wagtail.snippets.models import register_snippet
 
-# ...keep the definition of the NavigationSettings model
-
-
+# ...keep the definition of the NavigationSettings model and add the FooterText model:
 @register_snippet
 class FooterText(
     DraftStateMixin,
@@ -204,7 +203,7 @@ Since your `FooterText` model is a Wagtail snippet, you must manually add `Mixin
 
 `TranslatableMixin` is an abstract model you can add to any non-page Django model to make it translatable.
 
-Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. With the `PulishingPanel()` method in your `FooterText`, you can schedule revisions`.
+Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. With the `PulishingPanel()` method in your `FooterText`, you can schedule `revisions`.
 
 The `__str__` method defines a human-readable string representation of an instance of the `FooterText` class. It returns the string "Footer text".
 
@@ -253,7 +252,7 @@ In the preceding code, you imported the `template` module, which provides the ca
 
 `register = template.Library()` creates an instance of the Library class from the template module. You can use this instance to register custom template tags and filters.
 
-`@register.inclusion_tag("base/includes/footer_text.html", takes_context=True)` is a decorator that registers an inclusion tag named `get_footer_text`. `"base/includes/footer_text.html"` is the template path that you will use to render the inclusion tag. `takes_context=True ` indicates that the context of your `footer_text.html` template will be passed as an argument to your inclusion tag function.
+`@register.inclusion_tag("base/includes/footer_text.html", takes_context=True)` is a decorator that registers an inclusion tag named `get_footer_text`. `"base/includes/footer_text.html"` is the template path that you'll use to render the inclusion tag. `takes_context=True ` indicates that the context of your `footer_text.html` template will be passed as an argument to your inclusion tag function.
 
 The `get_footer_text` inclusion tag function takes a single argument named `context. `context` represents the template context where you will use the tag.
 
@@ -276,16 +275,32 @@ To use the returned dictionary in your `footer_text` template, add the following
 </div>
 ```
 
-Now add your `footer_text` template to your footer by modifying your `portfoliosite/templates/includes/footer.html` file:
+```Note
+You have have to create the `templates/base/includes` folder in your base folder
+```
+
+Now add your `footer_text` template to your footer by modifying your `mysite/templates/includes/footer.html` file:
 
 ```html+django
-<!-- Load navigation_tags: -->
+<!-- Load navigation_tags at the top of the file: -->
 {% load navigation_tags %}
 
 <footer>
     <p>Built with Wagtail</p>
 
-@@ -17,4 +19,5 @@
+    {% with twitter_url=settings.base.NavigationSettings.twitter_url github_url=settings.base.NavigationSettings.github_url mastodon_url=settings.base.NavigationSettings.mastodon_url %}
+        {% if twitter_url or github_url or mastodon_url %}
+            <p>
+                Follow me on:
+                {% if github_url %}
+                    <a href="{{ github_url }}">GitHub</a>
+                {% endif %}
+                {% if twitter_url %}
+                    <a href="{{ twitter_url }}">Twitter</a>
+                {% endif %}
+                {% if mastodon_url %}
+                    <a href="{{ mastodon_url }}">Mastodon</a>
+                {% endif %}
             </p>
         {% endif %}
     {% endwith %}

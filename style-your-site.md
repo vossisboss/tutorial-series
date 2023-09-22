@@ -4,7 +4,7 @@ In this tutorial, you'll add a basic site theme to your portfolio site and impro
 
 ## Add styles
 
-To add CSS to your site, navigate to your `portfoliosite/static/css/mysite.css` and the following:
+To style your site, navigate to your `mysite/static/css/mysite.css` file and add the following:
 
 ```css
 *,
@@ -45,11 +45,17 @@ header {
 }
 ```
 
-Now, reload your portfolio website to reflect the CSS styles.
+Now, reload your portfolio site to reflect the CSS styles.
+
+```Note
+If your webpage's styles do not update after reloading, then you may need to clear your browser cache.
+```
 
 ## Improve user experience
 
-There are several ways to improve the user experience of your portfolio website. Start by modifying your `portfoliosite/templates/base.html` file as follows:
+There are several ways to improve the user experience of your portfolio site.
+
+Start by modifying your `mysite/templates/base.html` file as follows:
 
 ```html+django
 <!-- remove  wagtailuserbar: -->
@@ -78,7 +84,7 @@ There are several ways to improve the user experience of your portfolio website.
         <base target="_blank">
         {% endif %}
 
-        <!-- Add this: -->
+        <!-- Add supported color schemes: -->
         <meta name="color-scheme" content="light dark">
 
         <!-- Add a favicon with inline SVG: -->
@@ -116,17 +122,17 @@ There are several ways to improve the user experience of your portfolio website.
 ```
 
 In the preceding template, you made the following modifications:
-1. You removed `wagtailuserbar` from your base template. You will add the `wagtailuserbar` to your `header` template later in the tutorial. This change improves the user experience for  keyboard and screen reader users.
+1. You removed `wagtailuserbar` from your base template. You will add the `wagtailuserbar` to your `header` template later in the tutorial. This change improves the user experience for keyboard and screen reader users.
 
 2. You Added `<meta name="color-scheme" content="light dark">` to inform the browser about the supported color schemes for your site. This makes your site adapt to both dark and light themes.
 
-3. You used the `<link>` tag to add a favicon to your portfolio site using an inline SVG.
+3. You used the `<link>` tag to add a favicon to your portfolio site using inline SVG.
 
-4. You wrapped the `{% block content %}` and `{% endblock %}` tags, which define the main content of the page within a `<main>` HTML tag. The `<main>` tag is a semantic HTML5 tag used to indicate the main content of a webpage.
+4. You wrapped the `{% block content %}` and `{% endblock %}` tags, which define the main content of the page within a `<main>` HTML5 tag. The `<main>` tag is a semantic HTML5 tag used to indicate the main content of a webpage.
 
-Additionally, you want to dynamically get the title of your HomePage to use in your site menu instead of hardcoding it in your template. Also, you want to add the child pages marked as `Show in menu` in your admin interface to your site menu. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template to improve user the experience for  keyboard and screen reader users. 
+Additionally, you want to dynamically get the title of your HomePage to use in your site menu instead of hardcoding it in your template. Also, you should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template to improve user the experience for  keyboard and screen reader users. 
 
-To make the preceding improvements, modify your `portfoliosite/templates/includes/header.html` as follows:
+To make the preceding improvements, modify your `mysite/templates/includes/header.html` as follows:
 
 ```html+django
 <!-- load wagtailuserbar: -->
@@ -139,7 +145,7 @@ To make the preceding improvements, modify your `portfoliosite/templates/include
           <a href="{% pageurl site_root %}">{{ site_root.title }}</a> |
           {% for menuitem in site_root.get_children.live.in_menu %}
 
-            <!-- Add the child pages of your HomePage marked as `Show in menu` in your admin interface -->
+            <!-- Add the child pages of your HomePage that have their `Show in menu` checked -->
             <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>{% if not forloop.last %} | {% endif %}
 
           {% endfor %}
@@ -151,7 +157,6 @@ To make the preceding improvements, modify your `portfoliosite/templates/include
 </header>
 ```
 
-
 <!-- Ask Thibaud:
 1. About the use of  ".template-homepage main { text-align: center; } as I can't find where the class is used in the template 
 2. Styles changes don't reflect in Safari. Provide content on troubleshootin this for users
@@ -160,7 +165,7 @@ To make the preceding improvements, modify your `portfoliosite/templates/include
 
 Another way you can improve user experience is by adding a skip link for keyboard users. A skip link is a web accessibility feature that enhances the browsing experience for keyboard navigators and screen readers. The skip link will let your users jump directly to the main content.
 
-To add a skip-link, add the following styles to your `portfoliosite/static/css/mysite.css` file:
+To add a skip-link, add the following styles to your `mysite/static/css/mysite.css` file:
 
 ```css
 .skip-link {
@@ -173,7 +178,7 @@ To add a skip-link, add the following styles to your `portfoliosite/static/css/m
 }
 ```
 
-After adding the styles, go to your `portfoliosite/templates/base.html` file and add a unique identifier:
+After adding the styles, go to your `mysite/templates/base.html` file and add a unique identifier:
 
 ```html+python
 {% include "includes/header.html" %}
@@ -184,12 +189,11 @@ After adding the styles, go to your `portfoliosite/templates/base.html` file and
 </main>
 ```
 
-Finally, go to your `portfoliosite/templates/includes/header.html` and modify it as follows:
+Finally, go to your `mysite/templates/includes/header.html` and modify it as follows:
 
 ```
 {% load wagtailcore_tags navigation_tags wagtailuserbar %}
 <header>
-
   <!-- Add this: -->
   <a href="#main" class="skip-link">Skip to content</a>
   

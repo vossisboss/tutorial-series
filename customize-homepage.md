@@ -8,7 +8,7 @@ When building your portfolio website, the first step is to set up and personaliz
 4. Call to Action (CTA): Incorporate a CTA that guides visitors to take a specific action, such as "View Portfolio," "Hire Me," or "Learn More."
 5. Downloadable Resume
 
-In this section, you'll learn how to add features 1 through 4 to your homepage. You will add your resume or CV later in the tutorial.
+In this section, you'll learn how to add features 1 through 4 to your homepage. You'll add your resume or CV later in the tutorial.
 
 Now, modify your `home/models` file to include the following:
 
@@ -22,7 +22,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
 
 class HomePage(Page):
-    # Hero section of HomePage
+    # add the Hero section of HomePage:
     image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -51,9 +51,9 @@ class HomePage(Page):
         help_text="Choose a page to link to for the Call to Action",
     )
 
-    # Body section of the HomePage
     body = RichTextField(blank=True)
 
+    # modify your content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -91,7 +91,7 @@ Now go to your Wagtail admin interface and follow these steps to add data to you
 4. Choose an image, choose a page, and add data to the input fields.
 
 ```Note
-You can only choose the Home page to link to your Call to Action because you only have the Home page in your site. You will choose a more suitable page later in the tutorial.
+You can choose your home page or blog index page to link to your Call to Action. You'll choose a more suitable page later in the tutorial.
 ```
 
 5. Publish your Home page.
@@ -122,8 +122,8 @@ Delete the content of your `home/templates/home/home_page.html` file and add the
 {% endblock content %}
 ```
 
-In your Homepage template, notice the use of `firstof` in line 13. TIt's helpful to use this tag when you have created a series of fallback options, and you want to display the first one that has a value. So, in your template, the `firstof` template tag displays `page.hero_cta` if it has a value. If `page.hero_cta` doesn't have a value, then it displays `page.hero_cta_link.title`.
+In your Homepage template, notice the use of `firstof` in line 13. It's helpful to use this tag when you have created a series of fallback options, and you want to display the first one that has a value. So, in your template, the `firstof` template tag displays `page.hero_cta` if it has a value. If `page.hero_cta` doesn't have a value, then it displays `page.hero_cta_link.title`.
 
-Congratulations! You have completed the first stage of your Portfolio website 🎉🎉🎉.
+Congratulations! You've completed the first stage of your Portfolio website 🎉🎉🎉.
 
 <!-- Note to Damilola: Provide an explanation for StreamField and distinguish it from RichtextField; Ask for a draft explanation of wagtailcore.Page from Thibaud. Explain "firstof" in the Homepage template. You can reference the "firstof" in django documentation-->
