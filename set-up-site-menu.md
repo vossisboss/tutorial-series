@@ -15,8 +15,7 @@ from base.models import FooterText
 register = template.Library()
 
 
-# ... keep the definition of the get_footer_text inclusion tag
-
+# ... keep the definition of get_footer_text and add the get_site_root template tag:
 @register.simple_tag(takes_context=True)
 def get_site_root(context):
     return Site.find_for_request(context["request"]).root_page
@@ -24,10 +23,11 @@ def get_site_root(context):
 
 In the preceding code, you used the `get_site_root` template tag to retrieve the root page of your site, which is your HomePage. 
 
-Now, modify your `portfoliosite/templates/includes/header.html` file:
+Now, create `mysite/templates/includes/header.html` file and add the following to it:
 
 ```html+django
 {% load wagtailcore_tags navigation_tags %}
+
 <header>
     {% get_site_root as site_root %}
     <nav>
@@ -49,17 +49,17 @@ In the preceding template you loaded the `wagtailcore_tags` and `navigation_tags
 
 `{% for menuitem in site_root.get_children.live.in_menu %}` is a loop that iterates through the child pages of your HomePage that're live and included in the menu.
 
-Finally, add your `header` template to your `base` template by modifying your `portfoliosite/templates/base.html` file:
+Finally, add your `header` template to your `base` template by modifying your `mysite/templates/base.html` file:
 
 ```html+django
 <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
+        <!-- Add your header template to your base template: -->
         {% include "includes/header.html" %}
 
         {% block content %}{% endblock %}
 
-        <!-- Add your footer template to your base template -->
         {% include "includes/footer.html" %}
 
         {# Global javascript #}
@@ -76,6 +76,6 @@ Now, if you reload your homepage, you'll see your site menu with a link to your 
 1. go to your admin interface
 2. go to any top-level page
 3. click **Promote**
-4. click the checkbox in **For site menus**
+4. check **Show in menus**
 
 <!-- Provide a diagram to illustrate the checking of the Show in Menu checkbox -->
