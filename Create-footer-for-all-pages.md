@@ -91,7 +91,7 @@ Now go to your `mysite/templates/base.html` file and modify it:
     {% include "includes/footer.html" %}
 
     {# Global javascript #}
-    <script type="text/javascript" src="{% static 'js/portfolio.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
 
     {% block extra_js %}
     {# Override this in templates to add extra javascript #}
