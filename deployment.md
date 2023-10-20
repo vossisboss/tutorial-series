@@ -383,6 +383,7 @@ WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"
 try:
     from .local import *
 except ImportError:
+    pass
 ```
 
 The explanation of some of the code in your  `mysite/settings/production.py` file is as follows:
