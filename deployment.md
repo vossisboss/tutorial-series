@@ -456,8 +456,8 @@ Now, Exit your console and go to ` https://yourname-wagtail-portfolio.fly.dev/ad
 
 To add content to your site through the admin interface, read the instructions in the following sections:
 
-[Add content to your homepage]()
-[Add your social media links]()
-[Add pages to your site menu]()
-[Add footer text]()
-[Add your resume]()
+- [Add content to your homepage]()
+- [Add your social media links]()
+- [Add pages to your site menu]()
+- [Add footer text]()
+- [Add your resume]()
