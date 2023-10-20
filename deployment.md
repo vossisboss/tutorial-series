@@ -9,7 +9,7 @@ In this tutorial, you'll use two platforms to deploy your site. You'll host your
 You can use fly.io to host your site and serve your images. However, storing your images on a platform other than the one hosting your site provides better performance, security, and reliability.
 
 ```note
-In this tutorial, you will see <yourname> several times. Replace it with a name of your choice.
+In this tutorial, you will see yourname several times. Replace it with a name of your choice.
 ```
 
 ## Setup Backblaze B2 Cloud Storage
@@ -23,20 +23,23 @@ To serve your images, set up a Backblaze B2 storage following these steps:
     b. Select the appropriate region.
     c. Click **Sign Up Now**.
 4. Verify your email by following these steps:
-    a. Go to **Account > My Settings**.
+    a. Go to **Account > My Settings** in your side navigation.
     b. Click **Verify Email** in the **Security section**.
     c. Enter your sign-up email address and then click send **Send Code**.
     d. Check your email inbox or spam folder for the verification email
     e. Click the verification link or use the verification code.
 5. Create a Bucket by going to **B2 Cloud Storage > Bucket** and clicking **Create a Bucket**.
 6. Go to **B2 Cloud Storage > Bucket** and then click **Create a Bucket**.
-7. Add your Bucket details:
-    a. Use a unique Bucket name. For example,_<yourname>-wagtail-portfolio_.
+7. Add your Bucket information as follows:
 
-    b. Select **Public** for **Files in Bucket are**.
-    c. Select **Disable** for **Default Encryption**.
-    d. Select **Disable** for **Object Lock**.
-    e. Click **Create a Bucket**.
+| Bucket information | Instruction |
+| -------- | ------- |
+| Bucket Unique Name | Use a unique Bucket name. For example,_yourname-wagtail-portfolio_ |
+| Files in Bucket are | Select **Public** |
+| Default Encryption | Select **Disable** |
+| Object Lock | Select **Disable** |
+
+8. Click **Create a Bucket**.
 
 ## Link your site to Backblaze B2 Cloud Storage
 
@@ -81,12 +84,12 @@ The next step is to provide values for your environment variables. In your `.env
 
 | Environment variable | Instruction |
 | -------- | ------- |
-| AWS_STORAGE_BUCKET_NAME | Use your Backblaze B2 bucket name. |
-| AWS_S3_ENDPOINT_URL | Use the Backblaze B2 endpoint URL. For example, https://s3.us-east-005.backblazeb2.com |
-| AWS_S3_REGION_NAME | Determine your bucket's region from the endpoint URL. For example, if your endpoint URL is _s3.us-east-005.backblazeb2.com_, then your bucket's region is _us-east-005_. |
-| AWS_S3_ACCESS_KEY_ID | Leave this empty for now. |
-| AWS_S3_SECRET_ACCESS_KEY | Leave this empty for now. |
-| DJANGO_ALLOWED_HOSTS | Leave this empty for now. |
+| AWS_STORAGE_BUCKET_NAME | Use your Backblaze B2 bucket name |
+| AWS_S3_ENDPOINT_URL | Use the Backblaze B2 endpoint URL. For example, _https://s3.us-east-005.backblazeb2.com_ |
+| AWS_S3_REGION_NAME | Determine your bucket's region from the endpoint URL. For example, if your endpoint URL is _s3.us-east-005.backblazeb2.com_, then your bucket's region is _us-east-005_ |
+| AWS_S3_ACCESS_KEY_ID | Leave this empty for now |
+| AWS_S3_SECRET_ACCESS_KEY | Leave this empty for now |
+| DJANGO_ALLOWED_HOSTS | Leave this empty for now |
 | DJANGO_CSRF_TRUSTED_ORIGINS    | Use _https://_ |
 | DJANGO_SETTINGS_MODULE | Use _mysite.settings.production_ |
 
@@ -101,11 +104,12 @@ To get values for your `AWS_S3_ACCESS_KEY_ID` and `AWS_S3_SECRET_ACCESS_KEY`, fo
 
 | Setting | Instruction |
 | -------- | ------- |
-| Name of Key | Provide a unique name. |
-| Allow access to Buckets | Choose the Backblaze B2 bucket you created earlier. |
-| Type of Access | Select **Read and Write**. |
-| File name prefix | Leave field empty. |
-| Duration (seconds) | Leave field empty. |
+| Name of Key | Provide a unique name |
+| Allow access to Buckets | Choose the Backblaze B2 bucket you created earlier |
+| Type of Access | Select **Read and Write** |
+| Allow List All Bucket Names | Leave this unticked |
+| File name prefix | Leave field empty |
+| Duration (seconds) | Leave field empty |
 
 5. Click **Create New Key**.
 
@@ -113,17 +117,17 @@ Now, use your `keyID` as the value of `AWS_S3_ACCESS_KEY_ID` and `applicationKey
 
 | Environment variable | Instruction |
 | -------- | ------- |
-| AWS_S3_ACCESS_KEY_ID | Use your keyID. |
+| AWS_S3_ACCESS_KEY_ID | Use your keyID |
 | AWS_S3_SECRET_ACCESS_KEY | Use your applicationKey |
 
 At this stage, the content of your `.env.production` file looks like this:
 
 ```txt
-AWS_STORAGE_BUCKET_NAME=<yourname>-wagtail-portfolio
+AWS_STORAGE_BUCKET_NAME=yourname-wagtail-portfolio
 AWS_S3_ENDPOINT_URL=https://s3.us-east-005.backblazeb2.com
 AWS_S3_REGION_NAME=us-east-005
-AWS_S3_ACCESS_KEY_ID=<your keyID>
-AWS_S3_SECRET_ACCESS_KEY=<your applicationKey>
+AWS_S3_ACCESS_KEY_ID=your Backblaze keyID
+AWS_S3_SECRET_ACCESS_KEY=your Backblaze applicationKey
 DJANGO_ALLOWED_HOSTS=
 DJANGO_CSRF_TRUSTED_ORIGINS=https://
 DJANGO_SETTINGS_MODULE=mysite.settings.production
@@ -178,10 +182,14 @@ On Linux:
 curl -L https://fly.io/install.sh | sh
 ```
 
-On Windows:
+On Windows, navigate to your project directory on **PowerShell**, activate your environment and run the following command:
 
 ```doscon
 pwsh -Command "iwr https://fly.io/install.ps1 -useb | iex"
+```
+
+```note
+If your get an error on Windows saying the term `pwsh` is  not recognized, install [PowerShell MSI](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3#installing-the-msi-package) and then rerun the preceding Windows command.
 ```
 
 7. [Sign in](https://fly.io/docs/hands-on/sign-in/) to your Fly.io by running the following command:
@@ -190,20 +198,25 @@ pwsh -Command "iwr https://fly.io/install.ps1 -useb | iex"
 fly auth login
 ```
 
-If you get an error while running `fly auth login` on Windows, then run:
+If you use Microsoft WSL, then run:
 
 ```doscon
 ln -s /usr/bin/wslview /usr/local/bin/xdg-open
+```
+
+```note
+If you successfully install flyctl but get an error saying "`fly` is not recognized" or "flyctl: command not found error", then you must add flyctl to your PATH. For more information, read [Getting flyctl: command not found error post install](https://community.fly.io/t/getting-flyctl-command-not-found-error-post-install/4954/1).
 ```
 
 8. Create your Fly.io project by running `fly launch` and answering the resulting prompt questions as follows:
 
 | Question | Instruction |
 | -------- | ------- |
-| Choose an app name | Enter a name of your choice. For example, _<yourname>-wagtail-portfolio_. |
+| Choose an app name | Enter a name of your choice. For example, _yourname-wagtail-portfolio_ |
 | Choose a region for deployment | Select the appropriate region. |
+| Overwrite ".../.dockerignore"?  | Enter _y_ |
 | Overwrite ".../Dockerfile"?  | Enter _y_ |
-| Would you like to set up a Postgresql database now?  | Enter _y_. |
+| Would you like to set up a Postgresql database now?  | Enter _y_ |
 | Select configuration | select _Development - Single node, 1x shared CPU, 256MB RAM, 1GB disk_ if available. Otherwise, select the smallest configuration option |
 | Scale single node pg to zero after one hour?  | Enter _y_ |
 | Would you like to set up an Upstash Redis database now? | Enter _n_ |
@@ -219,7 +232,7 @@ If you use a third-party app terminal like the Visual Studio Code terminal, you 
 6. Enter the name your app.
 7. Click **Yes delete it**.
 8. Repeat steps 3, 4, 5, 6, and 7 for all apps in your **Apps** list.
-9. Run the `fly launch` command in your built-in terminal.
+9. Run the `fly launch` command in your built-in terminal or PowerShell MSI on Windows.
 
 ## Customize your site to use Fly.io
 
@@ -242,6 +255,42 @@ Configure your Fly.io to use `1` worker. This allows your site to work better wi
 
 ```
 CMD ["gunicorn", "--bind", ":8000", "--workers", "1", "mysite.wsgi"]
+```
+
+Also, check if your `fly.toml` file has the following:
+
+```toml
+[deploy]
+  release_command = "python manage.py migrate"
+```
+
+The `fly launch` command creates two new files, `Dockerfile` and `fly.toml`, in your project directory.
+
+```toml
+app = "yourname-wagtail-portfolio"
+primary_region = "lhr"
+console_command = "/code/manage.py shell"
+
+[build]
+
+# add the deploy command:
+[deploy]
+  release_command = "python manage.py migrate"
+
+[env]
+  PORT = "8000"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[statics]]
+  guest_path = "/code/static"
+  url_prefix = "/static/"
 ```
 
 Now add your production dependencies by replacing the content of your `requirements.txt` file with the following:
@@ -350,19 +399,19 @@ Now, complete the configuration of your environment variables by modifying your 
 
 | Environment variable | Instruction |
 | -------- | ------- |
-| DJANGO_ALLOWED_HOSTS | This must match your fly.io project name. For example, <yourname>-wagtail-portfolio.fly.dev |
-| DJANGO_CSRF_TRUSTED_ORIGINS | This must match your project’s domain name. For example, https://<yourname>-wagtail-portfolio.fly.dev. |
+| DJANGO_ALLOWED_HOSTS | This must match your fly.io project name. For example, _yourname-wagtail-portfolio.fly.dev_ |
+| DJANGO_CSRF_TRUSTED_ORIGINS | This must match your project’s domain name. For example, _https://yourname-wagtail-portfolio.fly.dev_ |
 
 The content of your `.env.production` file should now look like this:
 
 ```txt
-AWS_STORAGE_BUCKET_NAME=<yourname>-wagtail-portfolio
+AWS_STORAGE_BUCKET_NAME=yourname-wagtail-portfolio
 AWS_S3_ENDPOINT_URL=https://s3.us-east-005.backblazeb2.com
 AWS_S3_REGION_NAME=us-east-005
-AWS_S3_ACCESS_KEY_ID=<your keyID>
-AWS_S3_SECRET_ACCESS_KEY=<your applicationKey>
-DJANGO_ALLOWED_HOSTS=<yourname>-wagtail-portfolio.fly.dev
-DJANGO_CSRF_TRUSTED_ORIGINS=https://<yourname>-wagtail-portfolio.fly.dev
+AWS_S3_ACCESS_KEY_ID=your Backblaze keyID
+AWS_S3_SECRET_ACCESS_KEY=your Backblaze applicationKey
+DJANGO_ALLOWED_HOSTS=yourname-wagtail-portfolio.fly.dev
+DJANGO_CSRF_TRUSTED_ORIGINS=https://yourname-wagtail-portfolio.fly.dev
 DJANGO_SETTINGS_MODULE=mysite.settings.production
 ```
 
@@ -370,6 +419,12 @@ Set the secrets for Fly.io to use by running:
 
 ```sh
 flyctl secrets import < .env.production
+```
+
+On Windows, run the following command in your PowerShell MSI:
+
+```doscon
+Get-Content .env.production | flyctl secrets import
 ```
 
 Finally, deploy your site to Fly.io by running the following command:
@@ -387,13 +442,21 @@ flyctl ssh console
 Then run:
 
 ```sh
-DJANGO_SUPERUSER_USERNAME=<username> DJANGO_SUPERUSER_EMAIL=<mail@example.com> DJANGO_SUPERUSER_PASSWORD=<password> python manage.py createsuperuser --noinput
+DJANGO_SUPERUSER_USERNAME=username DJANGO_SUPERUSER_EMAIL=mail@example.com DJANGO_SUPERUSER_PASSWORD=password python manage.py createsuperuser --noinput
 ```
 
 ```note
-Ensure you replace _<username>_, _<mail@example.com>_, and _<password>_ with a username, email address, and password of your choice.
+Ensure you replace _username_, _mail@example.com_, and _password_ with a username, email address, and password of your choice.
 ```
 
-Now, Exit your console and go to ` https://<yourname>-wagtail-portfolio.fly.dev/admin/` in your browser to add content through your [admin interface]().
-
 For more information on how to set up your Django project on Fly.io, read [Django on Fly.io](https://fly.io/docs/django/).
+
+Now, Exit your console and go to ` https://yourname-wagtail-portfolio.fly.dev/admin/` in your browser to add content through the admin interface.
+
+To add content to your site through the admin interface, read the instructions in the following sections:
+
+[Add content to your homepage]()
+[Add your social media links]()
+[Add pages to your site menu]()
+[Add footer text]()
+[Add your resume]()

@@ -2,7 +2,7 @@
 
 Using the Wagtail `start` command to start your project gives you a built-in search app. This built-in search app provides a simple search functionality for your site. 
 
-However, you have to customize your search template to suit your portfolio site. To customize your search template, go to your `search/templates/search.html` file and modify it:
+However, you can customize your search template to suit your portfolio site. To customize your search template, go to your `search/templates/search.html` file and modify it as follows:
 
 ```html+django
 {% extends "base.html" %}
@@ -22,10 +22,10 @@ However, you have to customize your search template to suit your portfolio site.
 
 {% if search_results %}
 
-<!-- delete the <ul> html element and add this paragraph to display the details of results found: -->
+<!-- add this paragraph to display the details of results found: -->
 <p>You searched{% if search_query %} for “{{ search_query }}”{% endif %}, {{ search_results.paginator.count }} result{{ search_results.paginator.count|pluralize }} found.</p>
 
-<!-- add this to display search result: -->
+<!-- replace the <ul> HTML element with the <ol> html element: -->
 <ol>
     {% for result in search_results %}
     <li>
@@ -37,7 +37,7 @@ However, you have to customize your search template to suit your portfolio site.
     {% endfor %}
 </ol>
 
-<!-- replace the pagination with: -->
+<!-- improve pagination by adding: -->
 {% if search_results.paginator.num_pages > 1 %}
     <p>Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}, showing {{ search_results|length }} result{{ search_results|pluralize }} out of {{ search_results.paginator.count }}</p>
 {% endif %}
@@ -60,37 +60,44 @@ Now, let's explain the customizations you made in the preceding template.
 
 1. You used `<p>You searched{% if search_query %} for “{{ search_query }}”{% endif %}, {{ search_results.paginator.count }} result{{ search_results.paginator.count|pluralize }} found.</p>` to display the search query, the number of results found. You also used it to display the plural form of "result" if more than one search result is found.
 
-2. You deleted the `<ul>` element.
+2. You replaced the `<ul>` HTML element with the `<ol>` HTML element. The <ol> HTML element contains a loop iterating through each search result and displaying them as list items. Using `<ol>` makes gives you numbered search results.
 
-3. You used the `<ol>` element, which contains a loop iterating through each search result and displaying them as list items.
+3. You improved the pagination in the template. `{% if search_results.paginator.num_pages > 1 %}` checks if there is more than one page of search results. If there is more than one page of search results, it displays the current page number, the total number of pages, the number of results on the current page, and the total number of results.
 
-4. You replaced the original pagination in the template with the following:
+`{% if search_results.has_previous %} and {% if search_results.has_next %}` checks if there are previous and next pages of search results. If they exist, it displays "Previous" and "Next" links with appropriate URLs for pagination.
 
+Now, you want to display your search across your site. One way to do this is to add it to your header. Go to your `mysite/templates/includes/header.html` file and modify it as follows:
+
+```html+django
+<header>
+    <a href="#main" class="skip-link">Skip to content</a>
+    {% get_site_root as site_root %}
+    <nav>
+        <p>
+          <a href="{% pageurl site_root %}">{{ site_root.title }}</a> |
+          {% for menuitem in site_root.get_children.live.in_menu %}
+            <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>{% if not forloop.last %} | {% endif %}
+          {% endfor %}
+
+          <!-- display your search by adding this: -->
+          | <a href="/search/">Search</a>
+        </p>
+    </nav>
+
+    {% wagtailuserbar "top-right" %}
+</header>
 ```
-{% if search_results.has_previous %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-{% endif %}
 
-{% if search_results.has_next %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-{% endif %}
-```
-
-In the replacement, `{% if search_results.paginator.num_pages > 1 %}` checks if there is more than one page of search results. If there is more than one page of search results, it displays pagination information. The paragraph's content displays the current page number, the total number of pages, the number of results on the current page, and the total number of results. `{% if search_results.has_previous %} and {% if search_results.has_next %}` checks if there are previous and next pages of search results. If they exist, it displays "Previous" and "Next" links with appropriate URLs for pagination.
-
-Well done! You now have a fully deployable portfolio site. The next section will walk you through the steps required to deploy your site.
+Welldone! You now have a fully deployable portfolio site. The next tutorial will walk you through how to deploy your site.
 
 <!-- 
 Ask for mentors' guidance on this:
 
-Whether the best way to explain the use of index search and still maintain logical progression:
+Whether the best way to explain the use of index search and still maintain logical progression is to remove it from the Your first Wagtail site code and add it to the advanced series tutorials:
 
 from wagtail.search import index
 
  search_fields = Page.search_fields + [
  index.SearchField("body"),
  ]
-
-is to remove it from the Your first Wagtail site code and add it to the advanced series tutorials.
-
 -->

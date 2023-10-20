@@ -47,7 +47,7 @@ header {
 
 Now, reload your portfolio site to reflect the styles.
 
-```Note
+```note
 If your webpage's styles do not update after reloading, then you may need to clear your browser cache.
 ```
 
@@ -58,7 +58,7 @@ There are several ways to improve the user experience of your portfolio site.
 Start by modifying your `mysite/templates/base.html` file as follows:
 
 ```html+django
-<!-- remove  wagtailuserbar: -->
+<!-- remove wagtailuserbar: -->
 {% load static wagtailcore_tags %}
 
 <!DOCTYPE html>
@@ -84,10 +84,10 @@ Start by modifying your `mysite/templates/base.html` file as follows:
         <base target="_blank">
         {% endif %}
 
-        <!-- Add supported color schemes: -->
+        <!-- add supported color schemes: -->
         <meta name="color-scheme" content="light dark">
 
-        <!-- Add a favicon with inline SVG: -->
+        <!-- add a favicon with inline SVG: -->
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍩</text></svg>"/>
 
         {# Global stylesheets #}
@@ -122,15 +122,15 @@ Start by modifying your `mysite/templates/base.html` file as follows:
 ```
 
 In the preceding template, you made the following modifications:
-1. You removed `wagtailuserbar` from your base template. You will add the `wagtailuserbar` to your `header` template later in the tutorial. This change improves the user experience for keyboard and screen reader users.
+1. You removed `wagtailuserbar` from your base template. You'll add the `wagtailuserbar` to your `header` template later in the tutorial. This change improves the user experience for keyboard and screen reader users.
 
 2. You Added `<meta name="color-scheme" content="light dark">` to inform the browser about the supported color schemes for your site. This makes your site adapt to both dark and light themes.
 
 3. You used the `<link>` tag to add a favicon to your portfolio site using inline SVG.
 
-4. You wrapped the `{% block content %}` and `{% endblock %}` tags, which define the main content of the page within a `<main>` HTML5 tag. The `<main>` tag is a semantic HTML5 tag used to indicate the main content of a webpage.
+4. You wrapped the `{% block content %}` and `{% endblock %}` tags with a `<main>` HTML5 tag. The `<main>` tag is a semantic HTML5 tag used to indicate the main content of a webpage.
 
-Additionally, you should dynamically get the title of your HomePage to use in your site menu instead of hardcoding it in your template. Also, you should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template to improve user the experience for  keyboard and screen reader users. 
+Also, you should dynamically get your HomePage's title to use in your site menu instead of hardcoding it in your template. Also, you should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template. This will improve users' experience for keyboard and screen reader users. 
 
 To make the improvements mentioned in the preceding paragraph, modify your `mysite/templates/includes/header.html` as follows:
 
@@ -156,12 +156,6 @@ To make the improvements mentioned in the preceding paragraph, modify your `mysi
     {% wagtailuserbar "top-right" %}
 </header>
 ```
-
-<!-- Ask Thibaud:
-1. About the use of  ".template-homepage main { text-align: center; } as I can't find where the class is used in the template 
-2. Styles changes don't reflect in Safari. Provide content on troubleshootin this for users
-3. Ask for detailed explanations for the use of "wagtailuserbar"
--->
 
 Another way you can improve user experience is by adding a skip link for keyboard users. A skip link is a web accessibility feature that enhances the browsing experience for keyboard navigators and screen readers. The skip link will let your users jump directly to the main content.
 
@@ -210,4 +204,11 @@ Finally, go to your `mysite/templates/includes/header.html` and modify it as fol
 </header>
 ```
 
-In the preceding template, you added an `<a> (anchor)` element to create a _Skip to content_ link. You set the `href` attribute to `#main`, an internal anchor that links to your base template's `main` element.
+In the preceding template, you added an `<a> (anchor)` element to create a _Skip to content_ link. You set the `href` attribute to `#main`. The internal anchor links to your base template's `main` element.
+
+<!-- 
+Ask Thibaud:
+- For the the use of wagtailuserbar or a web page that explains it.
+
+- If "include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked." explains <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>{% if not forloop.last %} | {% endif %}
+-->

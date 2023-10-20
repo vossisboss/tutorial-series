@@ -1,8 +1,9 @@
 <!-- 
 Ask Thibaud if the addition of panels and other imported libraries have to follow a specific order.
 -->
+# Create contact page
 
-The contact page of any website serves as a means for visitors to contact the website owner. Having one on your portfolio site will help you connect with potential clients, employers, or other professionals interested in your skills.
+The contact page of any website serves as a means for visitors to contact the website owner. Having one on your portfolio site helps you connect with potential clients, employers, or other professionals interested in your skills.
 
 In this tutorial, you'll add a contact page to your portfolio site using the Wagtail forms. 
 
@@ -14,7 +15,7 @@ from django.db import models
 # import parentalKey:
 from modelcluster.fields import ParentalKey
 
-# import FieldRowPanel and FieldRowPanel:
+# import FieldRowPanel and InlinePanel:
 from wagtail.admin.panels import (
     FieldPanel,
     FieldRowPanel,
@@ -71,7 +72,7 @@ In the preceding code, your `FormField` model inherits from `AbstractFormField`.
 
 On the other hand, your `FormPage` model inherits from `AbstractEmailForm`. Unlike `AbstractFormField`, `AbstractEmailForm` offers a form-to-email capability. Also, it defines the `to_address`, `from_address`, and `subject` fields. It expects a `form_fields` to be defined. 
 
-After defining your `FormField` and `FormPage` models, you have to create `form_page` and `form_page_landing` templates. The `form_page` template differs from a standard Wagtail template because it's passed a variable named `form` containing a Django `Form` object in addition to the usual `Page` variable. The `form_page_landing.html`, on the other hand is a standard Wagtail template displayed after the user makes a successful form submission.
+After defining your `FormField` and `FormPage` models, you must create `form_page` and `form_page_landing` templates. The `form_page` template differs from a standard Wagtail template because it's passed a variable named `form` containing a Django `Form` object in addition to the usual `Page` variable. The `form_page_landing.html`, on the other hand, is a standard Wagtail template. Your site displays the `form_page_landing.html` after a user makes a successful form submission.
 
 <!-- Ask Thibaud for a web page explaining the Django `Form` object -->
 
@@ -109,23 +110,30 @@ Also, create a `base/templates/base/form_page_landing.html` file and add the fol
 {% endblock content %}
 ```
 
-Well done! You've added all the necessary lines of code and templates that will allow you to add a contact page to your portfolio website. 
+You've added all the necessary lines of code and templates that will allow you to add a contact page to your portfolio website. 
 
-However, there are five things left to do: 
-1. Migrate your database by running `python manage.py makemigrations` and then `python manage.py migrate`.
-2. Create a **Form page** as a child page of **Home** by following these steps:
+Now migrate your database by running `python manage.py makemigrations` and then `python manage.py migrate`.
 
-a. Go to your admin interface
-b. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar)
-c. click `Home`
-d. click the `...` icon at the top of the resulting page
-e. click `Home`
-f. click `add child page`
-g. click `Form page`
+## Add your contact information
 
-3. Add the necessary data. To do this, follow these steps:
-4. Publish your `Form Page`
-5. Style your contact page by adding the following CSS to your `mysite/static/css/mysite.css` file:
+To add contact information to your portfolio site, follow these steps:
+
+1. Create a **Form page** as a child page of **Home** by following these steps:
+
+a. Restart your server.
+b. Go to your admin interface.
+c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).
+d. Click `Home`.
+e. Click the `...` icon at the top of the resulting page.
+f. Click `add child page`.
+g. Click `Form page`.
+
+2. Add the necessary data.
+3. Publish your `Form Page`.
+
+## Style your contact page
+
+To style your contact page, add the following CSS to your `mysite/static/css/mysite.css` file:
 
 ```css
 .page-form label {
@@ -147,6 +155,4 @@ g. click `Form page`
 }
 ```
 
-<!-- Inform Thibaud that there is no code to add the Contact page to the site menu 
-Add instrductions for users to tick the Show in menu checkbox to show contact page in site menu
--->
+In the next tutorial, you'll learn how to add a portfolio page to your site.

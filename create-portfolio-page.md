@@ -1,18 +1,18 @@
-# Add a portfolio page
+# Create a portfolio page
 
 A portfolio page is a web page that has your resume or Curriculum Vitae (CV). The page gives potential employers access to your work experience.
 
 This tutorial shows you how to add a portfolio page to your portfolio site using the Wagtail StreamField. 
 
-First, let's explain what StreamField is and why it was developed.
+First, let's explain what StreamField is.
 
 ## What is StreamField?
 
-The primary reason for introducing StreamField in Wagtail is to address the tension between structured content and editorial flexibility in content management. 
+The reason for developing StreamField is to address the tension between structured content and editorial flexibility in content management. 
 
 In traditional content management systems, there's often a compromise between structured content and giving editors the freedom to create flexible layouts. Traditional solutions often relied on rich text fields to accommodate the need for more flexible and versatile content. Rich text field helps by allowing editors to use a WYSIWYG editor for formatting. However, rich text fields have limitations. These limitations include the loss of semantic value and issues with browser-based editors.
 
-On the other hand, StreamField gives editors more flexibility and addresses the limitations of rich text fields. StreamField is a versatile content management solution that treats content as a sequence of blocks. Each block represents different content types like paragraphs, images, and maps. Editors can arrange and customize these blocks to create complex and flexible layouts. Also, StreamField is designed to capture the semantic meaning of different content types. 
+StreamField gives editors more flexibility and addresses the limitations of rich text fields. StreamField is a versatile content management solution that treats content as a sequence of blocks. Each block represents different content types like paragraphs, images, and maps. Editors can arrange and customize these blocks to create complex and flexible layouts. Also, StreamField can capture the semantic meaning of different content types. 
 
 ## Create reusable custom blocks
 
@@ -73,7 +73,7 @@ class BaseStreamBlock(StreamBlock):
     paragraph_block = RichTextBlock(icon="pilcrow")
     image_block = ImageBlock()
     embed_block = EmbedBlock(
-        help_text="Insert a URL to embed, for example https://www.youtube.com/watch?v=SGJFWirQ3ks",
+        help_text="Insert a URL to embed. For example, https://www.youtube.com/watch?v=SGJFWirQ3ks",
         icon="media",
     )
 ```
@@ -82,17 +82,17 @@ In the preceding code, you created reusable Wagtail custom blocks for different 
 
 `ImageBlock` inherits from `StructBlock`. `StructBlock` allows you to group several child blocks as a single block. Your `ImageBlock` has three child blocks. The first child block, `Image`, uses the `ImageChooserBlock` field block type. `ImageChooserBlock` allows you to select an existing image, or upload a new one. Its `required` argument has a value of `true`. This means that you must provide an image. `caption` and `attribution` child blocks use the `CharBlock` field block type, which allows single-line text input. Your `caption` and `attribution` child blocks have their `required` attributes set to `false`. This means you can leave them empty in your [admin interface]().
 
-Just as `ImageBlock`, your `HeadingBlock` also inherits from `StructBlock`. It has two child blocks. Its first child block, `heading_text`, uses `CharBlock` for specifying the heading text, and it's required. Its second child block, `size`, uses `ChoiceBlock` for selecting the heading size. It provides options for **h2, h3, and h4**. Both `blank=True` and `required=False` make the heading text optional in your [admin interface]().
+Just as `ImageBlock`, your `HeadingBlock` also inherits from `StructBlock`. It has two child blocks. Its first child block, `heading_text`, uses `CharBlock` for specifying the heading text, and it's required. Its second child block, `size`, uses `ChoiceBlock` for selecting the heading size. It provides options for **h2**, **h3**, and **h4**. Both `blank=True` and `required=False` make the heading text optional in your [admin interface]().
 
-Your `BaseStreamBlock` class inherits from `StreamBlock`. `StreamBlock` defines a set of child block types that you can mix and repeat in any sequence like StreamField. Your `BaseStreamBlock` has four child blocks. The `heading_block` uses the previously defined `HeadingBlock`. `paragraph_block` uses `RichTextBlock`, which provides a WYSIWYG editor for creating formatted text. `image_block` uses the previously defined `ImageBlock` class. `embed_block` is a block for embedding external content like videos, and it uses the Wagtail `EmbedBlock`. To discover more field block types that are available for use, please read the [documentation on Field block types](https://docs.wagtail.org/en/stable/reference/streamfield/blocks.html#field-block-types)
+Your `BaseStreamBlock` class inherits from `StreamBlock`. `StreamBlock` defines a set of child block types that you can mix and repeat in any sequence like StreamField. Your `BaseStreamBlock` has four child blocks. The `heading_block` uses the previously defined `HeadingBlock`. `paragraph_block` uses `RichTextBlock`, which provides a WYSIWYG editor for creating formatted text. `image_block` uses the previously defined `ImageBlock` class. `embed_block` is a block for embedding external content like videos. It uses the Wagtail `EmbedBlock`. To discover more field block types that are available for use, read the [documentation on Field block types](https://docs.wagtail.org/en/stable/reference/streamfield/blocks.html#field-block-types)
 
 Also, you defined a `Meta` class within your `ImageBlock` and `HeadingBlock` blocks. The `Meta` classes provide metadata for the blocks, including icons to visually represent them. The `Meta` classes also include custom templates for rendering your `ImageBlock` and `HeadingBlock` blocks.
 
 ```note
-Wagtail provides built-in templates to render each block. However, you can overide the built-in template with a custom template.
+Wagtail provides built-in templates to render each block. However, you can override the built-in template with a custom template.
 ```
 
-Finally, you have to add the custom templates that you defined in the `Meta` classes of your `ImageBlock` and `HeadingBlock` blocks. 
+Finally, you must add the custom templates that you defined in the `Meta` classes of your `ImageBlock` and `HeadingBlock` blocks. 
 
 To add the custom template of your `ImageBlock`, create a `base/templates/base/blocks/image_block.html` file and add the following to it:
 
@@ -126,9 +126,9 @@ You can also create a custom template for a child block. For example, to create 
 
 ## Use created blocks in your portfolio app
 
-You can use the reusable custom blocks you created in your general-purpose `base` app across your site. However, it's conventional to define the blocks you wish to use in a blocks.py file in the app in which you intend to use them. You can then import the blocks in your app's `blocks.py` file for use in your `models.py` file.
+You can use the reusable custom blocks you created in your general-purpose `base` app across your site. However, it's conventional to define the blocks you wish to use in a blocks.py file of the app you intend to use them in. You can then import the blocks from your app's `blocks.py` file for use in your `models.py` file.
 
-Now create a `portfolio/blocks.py` file and add the following to it:
+Now create a `portfolio/blocks.py` file and import the block you intend to use as follows:
 
 ```python
 from base.blocks import BaseStreamBlock
@@ -165,7 +165,7 @@ class PortfolioPage(Page):
     ]
 ```
 
-In the preceding code, you defined a Wagtail `Page` named `PortfolioPage`. `parent_page_types = ["home.HomePage"]` specifies that your Portfolio page can only be a child page of Home page. Your `body` field is a `StreamField`, which uses the `PortfolioStreamBlock` custom block that you imported from your `portfolio/blocks.py` file. `blank=True` indicates that you can leave this field empty in your admin interface. `help_text` provides a brief description of the field to guide editors.
+In the preceding code, you defined a Wagtail `Page` named `PortfolioPage`. `parent_page_types = ["home.HomePage"]` specifies that your Portfolio page can only be a child page of Home Page. Your `body` field is a `StreamField`, which uses the `PortfolioStreamBlock` custom block that you imported from your `portfolio/blocks.py` file. `blank=True` indicates that you can leave this field empty in your admin interface. `help_text` provides a brief description of the field to guide editors.
 
 
 Your next step is to create a template for your `PortfolioPage`. To do this, add the following to your `portfolio/templates/portfolio/portfolio_page.html` file:
@@ -233,13 +233,13 @@ class PortfolioStreamBlock(BaseStreamBlock):
     featured_posts = FeaturedPostsBlock(group="Sections")
 ```
 
-In the preceding code `CardBlock` has three child blocks, `heading`, `text` and `image`. You are already familiar with the field block types used by the child pages.
+In the preceding code, `CardBlock` has three child blocks, `heading`, `text` and `image`. You are already familiar with the field block types used by the child pages.
 
-However, in your `FeaturedPostsBlock`, one of the child blocks, `posts`, uses `ListBlock`. `ListBlock` is a structural block type that allows you to have multiple sub-blocks of the same type. You used it with `PageChooserBlock` to select only pages of the Blog Page type. To better understand structural block types, please refer to the [Structural block types documentation](https://docs.wagtail.org/en/stable/reference/streamfield/blocks.html#structural-block-types).
+However, in your `FeaturedPostsBlock`, one of the child blocks, `posts`, uses `ListBlock`. `ListBlock` is a structural block type that allows you to have multiple sub-blocks of the same type.  You used it with `PageChooserBlock` to select only the Blog Page type pages. To better understand structural block types, read the [Structural block types documentation](https://docs.wagtail.org/en/stable/reference/streamfield/blocks.html#structural-block-types).
 
-Furthermore, `icon = "form"` and `icon = "folder-open-inverse"` define custom block icons to set your blocks apart in the admin interface. For more information about block icons, please refer to the [documentation on block icons](https://docs.wagtail.org/en/stable/topics/streamfield.html#block-icons)
+Furthermore, `icon = "form"` and `icon = "folder-open-inverse"` define custom block icons to set your blocks apart in the admin interface. For more information about block icons, read the [documentation on block icons](https://docs.wagtail.org/en/stable/topics/streamfield.html#block-icons)
 
-You used _group="Sections"_ in `card = CardBlock(group="Sections")` and `featured_posts = FeaturedPostsBlock(group="Sections")` to categorize your `card` and `featured_posts` child blocks together within a category named `section`.
+You used `group="Sections"` in `card = CardBlock(group="Sections")` and `featured_posts = FeaturedPostsBlock(group="Sections")` to categorize your `card` and `featured_posts` child blocks together within a category named `section`.
 
 You probably know what your next step is. You have to create templates for your `CardBlock` and `FeaturedPostsBlock`. 
 
@@ -279,23 +279,21 @@ To create a template for `featured_posts_block`, create a `portfolio/templates/p
 
 Finally, migrate your changes by running `python manage.py makemigrations` and then `python manage.py migrate`. 
 
-After migrating your changes, go to your admin interface and Create a **Portfolio page** as a child page of your **Home page**.
+## Add your resume
 
-Congratulations🎉! You now understand how to create complex flexible layouts with Wagtail StreamField.
+To add your resume to your portfolio site, follow these steps:
 
+1. Create a **Portfolio Page** as a child page of **Home** by following these steps:
 
-<!--
-Ask Meagen for her opinion about the use of contractions in headings and sub-headings
+a. Restart your server.
+b. Go to your admin interface.
+c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).
+d. Click `Home`.
+e. Click the `...` icon at the top of the resulting page.
+f. Click `add child page`.
+g. Click `Portfolio Page`.
 
-Add instruction to add date in admin interface
+2. Add the necessary data.
+3. Publish your `Portfolio Page`.
 
-explain icon and group. explan PortfolioStreamBlock too
-
-Provide reference for this tutorial.
-
-Correct error in the documentaion for ListBlock. Its Bases should be "ListBlock" and not "Block"
-
-Explain that some blocks use default templates, while you can provide custom templates if you want.
-
-Provide a cross reference for the explanations of some custom use.
--->
+Congratulations🎉! You now understand how to create complex flexible layouts with Wagtail StreamField. In the next tutorial, you'll learn how to add search functionality to your site.

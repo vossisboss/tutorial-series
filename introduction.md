@@ -1,6 +1,6 @@
 # Introduction
 
-Congratulations on completing the tutorial for your first Wagtail site! Now that you've completed the tutorial and built a blog site from scratch, you should have a solid understanding of the basic building blocks of a Wagtail website. We hope you enjoyed learning all about Wagtail.
+Congratulations on completing [Your first Wagtail site](https://docs.wagtail.org/en/stable/getting_started/tutorial.html) tutorial! Now that you've completed the tutorial and built a blog site from scratch, you should have a solid understanding of the basic building blocks of a Wagtail website. We hope you enjoyed learning all about Wagtail.
 
 Now that you can build a blog site with Wagtail, why stop there? We created this series of tutorials to help you grow your Wagtail knowledge. 
 

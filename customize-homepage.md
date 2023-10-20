@@ -17,7 +17,8 @@ from django.db import models
 
 from wagtail.models import Page
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel
+
+# import MultiFieldPanel:
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
 
@@ -72,33 +73,36 @@ You might already be familiar with the different parts of your HomePage model. T
 
 Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` and `hero_cta_link` fields on your Homepage will be set to null, preserving their data entries. Read the [Django documentation](https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey.on_delete) for more values for the `on-delete` attribute. 
 
-The `related_name` attribute creates a relationship between related models. For example, if you want to access the HomePage's `image` from `wagtailimages.Image`, you can use the `related_name` attribute. When you use `related_name="+"`, you’re creating a connection between models that doesn't create a reverse relationship for your `ForeignKey` fields. In other words, you're instructing Django to create a way to access the HomePage's `image` from `wagtailimages.Image` but not a way to access `wagtailimages.Image` from the HomePage `image`. 
+The `related_name` attribute creates a relationship between related models. For example, if you want to access the HomePage's `image` from `wagtailimages.Image`, you can use the `related_name` attribute. When you use `related_name="+"`, you create a connection between models that doesn't create a reverse relationship for your `ForeignKey` fields. In other words, you're instructing Django to create a way to access the HomePage's `image` from `wagtailimages.Image` but not a way to access `wagtailimages.Image` from the HomePage's `image`. 
 
-While `body` is a `RichTextField`, `hero_text` and `hero_cta` are `CharField`, a typical Django string field for storing short text.
+While `body` is a `RichTextField`, `hero_text` and `hero_cta` are `CharField`, a Django string field for storing short text.
 
 The [Your First Wagtail Tutorial]() already explained `content_panels`. [FieldPanel](https://docs.wagtail.org/en/stable/reference/pages/panels.html#fieldpanel) and [MultiPanel](https://docs.wagtail.org/en/stable/reference/pages/panels.html#multifieldpanel) are types of Wagtail built-in [Panels](https://docs.wagtail.org/en/stable/reference/pages/panels.html#panel-types). They're both subclasses of the base Panel class and accept all of Wagtail's `Panel` parameters in addition to their own. While the `FieldPanel` provides a widget for basic Django model fields, `MultiFieldPanel` helps you decide the structure of the editing form. For example, you can group related fields.
 
-Now that you understand the different parts of your HomePage model, migrate your database by running `python manage.py makemigrations` and
+Now that you understand the different parts of your `HomePage` model, migrate your database by running `python manage.py makemigrations` and
 then `python manage.py migrate`
 
 After migrating your database, start your server by running
 `python manage.py runserver`.
 
-Now go to your Wagtail admin interface and follow these steps to add data to your Home page:
-1. Log in with your admin user details.
+## Add content to your homepage
+
+To add content to your homepage through the admin interface, follow these steps:
+
+1. Log in to you [admin interface](http://127.0.0.1:8000/admin/), with your admin username and password.
 2. Click pages.
 3. Click the **edit** icon beside **Home**.
 4. Choose an image, choose a page, and add data to the input fields.
 
 ```Note
-You can choose your home page or blog index page to link to your Call to Action. You'll choose a more suitable page later in the tutorial.
+You can choose your home page or blog index page to link to your Call to Action. You can choose a more suitable page later in the tutorial.
 ```
 
 5. Publish your Home page.
 
-You have all the necessary data for your Home page now. You can visit your Home page in your browser by going to `http://127.0.0.1:8000`. You can't see your data, right? That’s because you have to modify your Homepage template to display the data.
+You have all the necessary data for your Home page now. You can visit your Home page by going to `http://127.0.0.1:8000` in your browser. You can't see your data, right? That’s because you must modify your Homepage template to display the data.
 
-Delete the content of your `home/templates/home/home_page.html` file and add the following to it:
+Replace the content of your `home/templates/home/home_page.html` file with the following:
 
 ```html+django
 {% extends "base.html" %}
@@ -126,4 +130,6 @@ In your Homepage template, notice the use of `firstof` in line 13. It's helpful 
 
 Congratulations! You've completed the first stage of your Portfolio website 🎉🎉🎉.
 
-<!-- Note to Damilola: Provide an explanation for StreamField and distinguish it from RichtextField; Ask for a draft explanation of wagtailcore.Page from Thibaud. Explain "firstof" in the Homepage template. You can reference the "firstof" in django documentation-->
+<!-- 
+Ask Thibaud if the Resume page is downloadable.
+-->
