@@ -4,7 +4,7 @@ Congratulations on completing [Your first Wagtail site](https://docs.wagtail.org
 
 Now that you can build a blog site with Wagtail, why stop there? We created this series of tutorials to help you grow your Wagtail knowledge. 
 
-In this series of tutorials, you'll be transforming your blog site into a fully deployable portfolio site. So, you must complete the [Your First Wagtail Site Tutorial]() before you begin with this.
+In this series of tutorials, you'll transform your blog site into a fully deployable portfolio site. So, you must complete the [Your First Wagtail Site Tutorial]() before you begin this series.
 
 In this series, you'll learn the following:
 - How to add pagination to your Wagtail website
