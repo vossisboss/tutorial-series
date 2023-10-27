@@ -89,8 +89,8 @@ After migrating your database, start your server by running
 
 To add content to your homepage through the admin interface, follow these steps:
 
-1. Log in to you [admin interface](http://127.0.0.1:8000/admin/), with your admin username and password.
-2. Click pages.
+1. Log in to your [admin interface](http://127.0.0.1:8000/admin/), with your admin username and password.
+2. Click Pages.
 3. Click the **edit** icon beside **Home**.
 4. Choose an image, choose a page, and add data to the input fields.
 
@@ -100,7 +100,7 @@ You can choose your home page or blog index page to link to your Call to Action.
 
 5. Publish your Home page.
 
-You have all the necessary data for your Home page now. You can visit your Home page by going to `http://127.0.0.1:8000` in your browser. You can't see your data, right? That’s because you must modify your Homepage template to display the data.
+You have all the necessary data for your Home page now. You can visit your Home page by going to `http://127.0.0.1:8000` in your browser. You can't see all your data, right? That’s because you must modify your Homepage template to display the data.
 
 Replace the content of your `home/templates/home/home_page.html` file with the following:
 

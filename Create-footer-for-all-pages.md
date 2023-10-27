@@ -205,7 +205,7 @@ Since your `FooterText` model is a Wagtail snippet, you must manually add `Mixin
 
 `TranslatableMixin` is an abstract model you can add to any non-page Django model to make it translatable.
 
-Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. The `PulishingPanel()` method allows you to schedule `revisions` in your `FooterText`.
+Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. The `PublishingPanel()` method allows you to schedule `revisions` in your `FooterText`.
 
 The `__str__` method defines a human-readable string representation of an instance of the `FooterText` class. It returns the string "Footer text".
 
@@ -258,7 +258,7 @@ In the preceding code, you imported the `template` module, which allows you to c
 
 `@register.inclusion_tag("base/includes/footer_text.html", takes_context=True)` is a decorator that registers an inclusion tag named `get_footer_text`. `"base/includes/footer_text.html"` is the template path that you'll use to render the inclusion tag. `takes_context=True ` indicates that the context of your `footer_text.html` template will be passed as an argument to your inclusion tag function.
 
-The `get_footer_text` inclusion tag function takes a single argument named `context. `context` represents the template context where you will use the tag.
+The `get_footer_text` inclusion tag function takes a single argument named `context`. `context` represents the template context where you will use the tag.
 
 `footer_text = context.get("footer_text", "")` tries to retrieve a value from the context using the key `footer_text`. The `footer_text` variable stores any retrieved value. If there is no `footer_text` value within the context, then the variable stores an empty string `""`.
 
@@ -314,4 +314,4 @@ Now add your `footer_text` template to your footer by modifying your `mysite/tem
 </footer>
 ```
 
-Welldone👏! You now have a footer across all pages of your portfolio site. In the next part of this tutorial, you'll learn how to set up a site menu for linking to your homepage and other pages as you add them.
+Well done! 👏 You now have a footer across all pages of your portfolio site. In the next part of this tutorial, you'll learn how to set up a site menu for linking to your homepage and other pages as you add them.
