@@ -91,7 +91,7 @@ To add content to your homepage through the admin interface, follow these steps:
 
 1. Log in to your [admin interface](http://127.0.0.1:8000/admin/), with your admin username and password.
 2. Click Pages.
-3. Click the **edit** icon beside **Home**.
+3. Click the **edit 🖊️** icon beside **Home**.
 4. Choose an image, choose a page, and add data to the input fields.
 
 ```Note
