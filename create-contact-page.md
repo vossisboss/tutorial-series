@@ -70,9 +70,9 @@ class FormPage(AbstractEmailForm):
 
 In the preceding code, your `FormField` model inherits from `AbstractFormField`. `AbstractFormField` allows you to define any form field type of your choice in the admin interface. `page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')` defines a parent-child relationship between the `FormField` and `FormPage` models.
 
-On the other hand, your `FormPage` model inherits from `AbstractEmailForm`. Unlike `AbstractFormField`, `AbstractEmailForm` offers a form-to-email capability. Also, it defines the `to_address`, `from_address`, and `subject` fields. It expects a `form_fields` to be defined. 
+On the other hand, your `FormPage` model inherits from `AbstractEmailForm`. Unlike `AbstractFormField`, `AbstractEmailForm` offers a form-to-email capability. Also, it defines the `to_address`, `from_address`, and `subject` fields. It expects `form_fields` to be defined. 
 
-After defining your `FormField` and `FormPage` models, you must create `form_page` and `form_page_landing` templates. The `form_page` template differs from a standard Wagtail template because it's passed a variable named `form` containing a Django `Form` object in addition to the usual `Page` variable. The `form_page_landing.html`, on the other hand, is a standard Wagtail template. Your site displays the `form_page_landing.html` after a user makes a successful form submission.
+After defining your `FormField` and `FormPage` models, you must create `form_page` and `form_page_landing` templates. The `form_page` template differs from a standard Wagtail template because it's passed a variable named `form` containing a Django `Form` object in addition to the usual `Page` variable. The format for `form_page_landing.html`, on the other hand, is a standard Wagtail template. Your site displays the `form_page_landing.html` after a user makes a successful form submission.
 
 <!-- Ask Thibaud for a web page explaining the Django `Form` object -->
 
