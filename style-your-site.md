@@ -124,13 +124,13 @@ Start by modifying your `mysite/templates/base.html` file as follows:
 In the preceding template, you made the following modifications:
 1. You removed `wagtailuserbar` from your base template. You'll add the `wagtailuserbar` to your `header` template later in the tutorial. This change improves the user experience for keyboard and screen reader users.
 
-2. You Added `<meta name="color-scheme" content="light dark">` to inform the browser about the supported color schemes for your site. This makes your site adapt to both dark and light themes.
+2. You added `<meta name="color-scheme" content="light dark">` to inform the browser about the supported color schemes for your site. This makes your site adapt to both dark and light themes.
 
 3. You used the `<link>` tag to add a favicon to your portfolio site using inline SVG.
 
 4. You wrapped the `{% block content %}` and `{% endblock %}` tags with a `<main>` HTML5 tag. The `<main>` tag is a semantic HTML5 tag used to indicate the main content of a webpage.
 
-Also, you should dynamically get your HomePage's title to use in your site menu instead of hardcoding it in your template. Also, you should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template. This will improve users' experience for keyboard and screen reader users. 
+Also, you should dynamically get your HomePage title to use in your site menu instead of hardcoding it in your template. Also, you should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template. This will improve the user experience for keyboard and screen reader users. 
 
 To make the improvements mentioned in the preceding paragraph, modify your `mysite/templates/includes/header.html` as follows:
 
