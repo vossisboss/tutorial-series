@@ -47,7 +47,7 @@ In the preceding template you loaded the `wagtailcore_tags` and `navigation_tags
 
 `<a href="{% pageurl site_root %}">Home</a> |` creates a link to your HomePage by using the pageurl template tag with `site_root` as an argument. It generates a link to your HomePage, with the label **Home**, followed by a pipe symbol `|`, to separate the menu items.
 
-`{% for menuitem in site_root.get_children.live.in_menu %}` is a loop that iterates through the child pages of your HomePage that're live and included in the menu.
+`{% for menuitem in site_root.get_children.live.in_menu %}` is a loop that iterates through the child pages of your HomePage that are live and included in the menu.
 
 Finally, add your `header` template to your `base` template by modifying your `mysite/templates/base.html` file:
 
